@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Image Hosting">
+  <meta property="og:image" content="images/favicon.png">
+  <link rel="icon" href="images/favicon.png">
+  <link rel="shortcut icon" href="images/favicon.png">
+  <link rel="stylesheet" href="style.css">
+  <title>Image Hosting</title>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Single Upload</h2>
+
+    <form action="/api/upload" method="POST" enctype="multipart/form-data">
+      <div class="upload-input">
+        <label class="upload-label">Select File:</label>
+        <input type="file" name="file" id="file" class="form-control" required>
+      </div>
+      <button class="upload-button" type="submit">Upload</button>
+    </form>
+
+    <div id="result" class="result-container">
+      <!-- Result will be displayed here -->
+    </div>
+
+    <hr>
+    <a href="https://wa.me/62895347198105">Source Code (By Arifzyn.)</a>
+  </div>
+
+  <script>
+    const form = document.querySelector('form');
+    const resultDiv = document.getElementById('result');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const result = await response.json();
+        resultDiv.innerHTML = `
+          <div class="result-card">
+            <p>File uploaded:</p>
+            <ul>
+              <li>Name: ${result.name}</li>
+              <li>Type: ${result.type}</li>
+              <li>Size: ${result.size} bytes</li>
+              <li>Url: ${result.url}</li>
+              <li><a href="${result.url}" target="_blank">View File</a></li>
+            </ul>
+          </div>
+        `;
+      } catch (error) {
+        console.error('Error uploading file:', error);
+        resultDiv.innerHTML = '<p>An error occurred while uploading the file.</p>';
+      }
+    });
+  </script>
+</body>
+
+</html>
