@@ -36,7 +36,7 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
   } catch (e) {
     res.status(404).json({
       status: 404,
-      message: "An error occurred while uploading the file."
+      message: e
     })
   }
 });
