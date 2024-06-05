@@ -13,11 +13,6 @@
       "methods": ["POST"]
     },
     {
-      "src": "/file/(.*)",
-      "dest": "/file/$1",
-      "methods": ["GET"]
-    },
-    {
       "src": "/(.*)",
       "dest": "/",
       "methods": ["GET"]
