@@ -3,19 +3,22 @@
   "builds": [
     {
       "src": "index.js",
-      "use": "@vercel/node"
+      "use": "@vercel/static-build",
+      "config": {}
     }
   ],
   "routes": [
     {
       "src": "/api/upload",
-      "dest": "/api/upload",
-      "methods": ["POST"]
+      "dest": "index.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "/",
-      "methods": ["GET"]
+      "src": "/file/:filename",
+      "dest": "index.js"
+    },
+    {
+      "src": "/uploads/*",
+      "dest": "uploads"
     }
   ]
 }
