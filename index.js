@@ -8,7 +8,7 @@ const port = 3000;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'public/temp/');
+    cb(null, 'tmp');
   },
   filename: (req, file, cb) => {
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
